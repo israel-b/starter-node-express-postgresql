@@ -20,7 +20,25 @@ async function list(req, res, next) {
   res.json({data});
 }
 
+async function listOutOfStockCount(req, res, next){
+  const data = await productsService.listOutOfStockCount();
+  res.json({ data });
+}
+
+async function listPriceSummary(req, res, next){
+  const data = await productsService.listPriceSummary();
+  res.json({ data });
+}
+
+async function listTotalWeightByProduct(req, res, next) {
+  const data = await productsService.listTotalWeightByProduct();
+  res.json({ data });
+}
+
 module.exports = {
+  listTotalWeightByProduct: [asyncErrorBoundary(listTotalWeightByProduct)],
+  listPriceSummary: [asyncErrorBoundary(listPriceSummary)],
+  listOutOfStockCount: [asyncErrorBoundary(listOutOfStockCount)],
   read: [asyncErrorBoundary(productExists), read],
   list: [asyncErrorBoundary(list)],
 };
